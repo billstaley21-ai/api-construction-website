@@ -8,9 +8,11 @@
   --muted: #6b7280;
   --line: #e5e7eb;
   --soft: #f7f8fa;
-  --soft-2: #f1f5f9;
+  --soft-2: #eef3f8;
   --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.08);
   --radius: 22px;
+  --radius-sm: 16px;
   --container: 1240px;
 }
 
@@ -46,6 +48,11 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+main {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .container {
@@ -102,9 +109,10 @@ textarea {
 }
 
 .brand-logo {
-  width: 78px;
+  width: 84px;
   height: auto;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .brand-copy {
@@ -146,6 +154,7 @@ textarea {
   transition: 0.2s ease;
   border: 1px solid transparent;
   cursor: pointer;
+  text-align: center;
 }
 
 .btn-gold {
@@ -182,7 +191,8 @@ textarea {
 
 .hero {
   position: relative;
-  background-image: url("/images/hero-stucco-house.jpg");
+  min-height: 760px;
+  background-image: url("/assets/stucco-house.jpg");
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -191,8 +201,12 @@ textarea {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(90deg, rgba(8, 18, 31, 0.92) 0%, rgba(8, 18, 31, 0.84) 38%, rgba(8, 18, 31, 0.45) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(8, 18, 31, 0.92) 0%,
+    rgba(8, 18, 31, 0.82) 38%,
+    rgba(8, 18, 31, 0.42) 100%
+  );
 }
 
 .hero-grid {
@@ -226,9 +240,10 @@ textarea {
 
 .hero-copy h1 {
   margin: 0 0 18px;
-  font-size: clamp(38px, 5vw, 68px);
+  font-size: clamp(40px, 5vw, 72px);
   line-height: 0.98;
   letter-spacing: -0.03em;
+  max-width: 760px;
 }
 
 .hero-copy p {
@@ -405,11 +420,16 @@ textarea {
 }
 
 .feature-panel {
-  background:
-    linear-gradient(180deg, rgba(13, 27, 42, 0.98), rgba(18, 38, 58, 0.96));
+  background: linear-gradient(180deg, rgba(13, 27, 42, 0.98), rgba(18, 38, 58, 0.96));
   border-radius: 24px;
   color: var(--white);
   box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.feature-photo {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .feature-panel-inner {
@@ -457,7 +477,7 @@ textarea {
   background: var(--white);
   border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
   border: 1px solid rgba(229, 231, 235, 0.9);
 }
 
@@ -529,7 +549,7 @@ textarea {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 18px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .before-after-section {
@@ -566,14 +586,6 @@ textarea {
   margin-top: 30px;
 }
 
-.area-section {
-  background: var(--white);
-}
-
-.areas-layout {
-  align-items: start;
-}
-
 .area-list {
   margin: 20px 0 0;
   padding-left: 18px;
@@ -588,8 +600,17 @@ textarea {
   background: var(--navy);
   color: var(--white);
   border-radius: 22px;
-  padding: 30px;
+  overflow: hidden;
   box-shadow: var(--shadow);
+}
+
+.service-box-photo {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.service-box-body {
+  padding: 30px;
 }
 
 .service-box h3 {
@@ -684,18 +705,6 @@ textarea {
     justify-content: center;
   }
 
-  .brand {
-    justify-content: center;
-  }
-
-  .brand-copy {
-    align-items: flex-start;
-  }
-
-  .hero {
-    background-position: center;
-  }
-
   .hero-grid {
     padding: 52px 0;
     gap: 24px;
@@ -722,10 +731,6 @@ textarea {
   .section {
     padding: 72px 0;
   }
-
-  .quote-card-top h2 {
-    font-size: 28px;
-  }
 }
 
 @media (max-width: 560px) {
@@ -743,7 +748,7 @@ textarea {
   }
 
   .brand-logo {
-    width: 64px;
+    width: 68px;
   }
 
   .section-heading h2,

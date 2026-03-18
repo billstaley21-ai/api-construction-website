@@ -1,748 +1,474 @@
-:root {
-  --navy: #0d1b2a;
-  --navy-2: #12263a;
-  --gold: #d8a63d;
-  --gold-dark: #bf8d27;
-  --white: #ffffff;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --line: #e5e7eb;
-  --soft: #f7f8fa;
-  --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
-  --radius: 22px;
-  --container: 1240px;
-}
+export default function HomePage() {
+  return (
+    <main>
+      <header className="topbar">
+        <div className="container topbar-inner">
+          <div className="topbar-left">
+            <span>Licensed &amp; Insured</span>
+            <span>Free Estimates</span>
+            <span>Utah County &amp; Salt Lake County</span>
+          </div>
+          <a href="tel:+18014251766" className="topbar-phone">
+            (801) 425-1766
+          </a>
+        </div>
+      </header>
 
-* {
-  box-sizing: border-box;
-}
+      <nav className="navbar">
+        <div className="container nav-inner">
+          <a href="#top" className="brand">
+            <img
+              src="/assets/api-logo-new.png"
+              alt="A.P.I. Construction logo"
+              className="brand-logo"
+            />
+            <div className="brand-copy">
+              <strong>A.P.I. Construction</strong>
+              <span>Concrete • Stucco • Siding</span>
+            </div>
+          </a>
 
-html {
-  scroll-behavior: smooth;
-}
+          <div className="nav-links">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#why-us">Why Us</a>
+            <a href="#projects">Projects</a>
+            <a href="#areas">Service Area</a>
+            <a href="#contact">Contact</a>
+          </div>
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--text);
-  background: var(--white);
-  line-height: 1.55;
-}
+          <a href="#quote" className="btn btn-gold nav-cta">
+            Get Free Quote
+          </a>
+        </div>
+      </nav>
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+      <section className="hero" id="top">
+        <div className="hero-overlay" />
+        <div className="container hero-grid">
+          <div className="hero-copy">
+            <div className="eyebrow">Trusted Exterior Contractor in Utah</div>
+            <h1>
+              Covering Utah one home at a time with premium stucco, siding, and
+              concrete work.
+            </h1>
+            <p>
+              A.P.I. Construction delivers quality craftsmanship, honest pricing,
+              clean job sites, and real hands-on experience across Utah County and
+              Salt Lake County.
+            </p>
 
-img {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-}
+            <div className="hero-actions">
+              <a href="#quote" className="btn btn-gold">
+                Request Free Quote
+              </a>
+              <a href="#projects" className="btn btn-outline-light">
+                View Our Work
+              </a>
+            </div>
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
+            <div className="hero-badges">
+              <span>Stucco Specialists</span>
+              <span>Hardie &amp; Siding Upgrades</span>
+              <span>Concrete Flatwork</span>
+            </div>
+          </div>
 
-.container {
-  width: min(var(--container), calc(100% - 32px));
-  margin: 0 auto;
-}
+          <div className="quote-card" id="quote">
+            <div className="quote-card-top">
+              <h2>Get a Free Quote</h2>
+              <p>Fast response. Straight answers. No pressure.</p>
+            </div>
 
-.topbar {
-  background: var(--navy);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 14px;
-}
+            <form className="quote-form" action="/api/contact" method="POST">
+              <div className="field">
+                <label htmlFor="name">Full Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
 
-.topbar-inner {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
+              <div className="field">
+                <label htmlFor="phone">Phone Number</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="Best number to reach you"
+                  required
+                />
+              </div>
 
-.topbar-left {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-}
+              <div className="field">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Your email"
+                  required
+                />
+              </div>
 
-.topbar-phone {
-  font-weight: 700;
-}
+              <div className="field">
+                <label htmlFor="projectType">Project Type</label>
+                <select
+                  id="projectType"
+                  name="projectType"
+                  defaultValue=""
+                  required
+                >
+                  <option value="" disabled>
+                    Select service
+                  </option>
+                  <option value="Stucco">Stucco</option>
+                  <option value="Siding">Siding</option>
+                  <option value="Concrete">Concrete</option>
+                  <option value="Exterior Remodel">Exterior Remodel</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
 
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.9);
-  backdrop-filter: blur(10px);
-}
+              <div className="field">
+                <label htmlFor="message">Project Details</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  placeholder="Tell us about your project..."
+                  required
+                />
+              </div>
 
-.nav-inner {
-  min-height: 84px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
+              <button type="submit" className="btn btn-gold btn-full">
+                Send Request
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-width: 0;
-}
+      <section className="intro-strip">
+        <div className="container intro-strip-grid">
+          <div>
+            <h3>Clean Workmanship</h3>
+            <p>
+              Quality work done right with sharp finish detail and pride in the
+              result.
+            </p>
+          </div>
+          <div>
+            <h3>Honest Pricing</h3>
+            <p>
+              Clear communication and fair pricing without the runaround.
+            </p>
+          </div>
+          <div>
+            <h3>Trusted Service</h3>
+            <p>
+              Treating customers like family and showing up the way we say we
+              will.
+            </p>
+          </div>
+        </div>
+      </section>
 
-.brand-logo {
-  width: 84px;
-  height: auto;
-  object-fit: contain;
-}
+      <section className="section about-section" id="about">
+        <div className="container two-col">
+          <div className="content-block">
+            <div className="section-tag">About API Construction</div>
+            <h2>A family-centered construction company built on the meaning of home.</h2>
+            <p>
+              A.P.I. Construction was founded on the belief that every home
+              deserves quality, strength, and care. “API” is the Tongan word for
+              home, and that idea shapes how we approach every project.
+            </p>
+            <p>
+              We combine hands-on field experience with a high standard for
+              workmanship, professionalism, and customer service. Whether it is a
+              stucco repair, new siding install, or concrete project, we focus on
+              doing the job right and leaving the site clean.
+            </p>
+            <a href="#contact" className="btn btn-dark">
+              Talk With Us
+            </a>
+          </div>
 
-.brand-copy {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
+          <div className="feature-panel">
+            <img
+              src="/assets/concrete-curved-walkway.jpg"
+              alt="A.P.I. Construction exterior project"
+              className="feature-photo"
+            />
+            <div className="feature-panel-inner">
+              <h3>What homeowners value most</h3>
+              <ul>
+                <li>Responsive communication</li>
+                <li>Clean, professional job sites</li>
+                <li>High-quality exterior craftsmanship</li>
+                <li>Real project experience</li>
+                <li>Free estimates and honest pricing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
-.brand-copy strong {
-  font-size: 18px;
-  color: var(--navy);
-}
+      <section className="section services-section" id="services">
+        <div className="container">
+          <div className="section-heading center">
+            <div className="section-tag">Our Services</div>
+            <h2>Exterior services designed to protect and upgrade your property.</h2>
+            <p>
+              We focus on the work that improves curb appeal, weather protection,
+              and long-term exterior performance.
+            </p>
+          </div>
 
-.brand-copy span {
-  font-size: 13px;
-  color: var(--muted);
-}
+          <div className="services-grid">
+            <article className="service-card">
+              <img
+                src="/assets/stucco-house.jpg"
+                alt="Stucco work by API Construction"
+              />
+              <div className="service-card-body">
+                <h3>Stucco</h3>
+                <p>
+                  New stucco, repairs, patch work, exterior remediation, and
+                  refreshed finishes that improve both appearance and protection.
+                </p>
+                <a href="#quote">Get a Stucco Quote</a>
+              </div>
+            </article>
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  color: #374151;
-  font-size: 15px;
-}
+            <article className="service-card">
+              <img
+                src="/assets/hardie-board-house.png"
+                alt="Siding work by API Construction"
+              />
+              <div className="service-card-body">
+                <h3>Siding</h3>
+                <p>
+                  Hardie board and exterior siding replacement for a cleaner look,
+                  better durability, and stronger curb appeal.
+                </p>
+                <a href="#quote">Get a Siding Quote</a>
+              </div>
+            </article>
 
-.nav-links a:hover {
-  color: var(--gold-dark);
-}
+            <article className="service-card">
+              <img
+                src="/assets/concrete-flatwork.jpg"
+                alt="Concrete work by API Construction"
+              />
+              <div className="service-card-body">
+                <h3>Concrete</h3>
+                <p>
+                  Patios, walkways, driveways, flatwork, demo and replacement
+                  work completed with an emphasis on finish quality and longevity.
+                </p>
+                <a href="#quote">Get a Concrete Quote</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 52px;
-  padding: 0 22px;
-  border-radius: 999px;
-  font-weight: 700;
-  transition: 0.2s ease;
-  border: 1px solid transparent;
-  cursor: pointer;
-}
+      <section className="section dark-band" id="why-us">
+        <div className="container">
+          <div className="section-heading center light">
+            <div className="section-tag">Why Choose Us</div>
+            <h2>Premium results without losing the personal touch.</h2>
+            <p>
+              Honest people, quality work, and a finished result you can feel
+              good about.
+            </p>
+          </div>
 
-.btn-gold {
-  background: var(--gold);
-  color: var(--navy);
-}
+          <div className="reasons-grid">
+            <div className="reason-card">
+              <h3>Real Jobsite Experience</h3>
+              <p>
+                We understand exterior work from the field, not just from a sales
+                pitch.
+              </p>
+            </div>
+            <div className="reason-card">
+              <h3>Strong Communication</h3>
+              <p>
+                Customers deserve clarity on pricing, scope, and expectations
+                from the start.
+              </p>
+            </div>
+            <div className="reason-card">
+              <h3>Work That Shows</h3>
+              <p>
+                Our projects are built to improve both the look and performance
+                of the home.
+              </p>
+            </div>
+            <div className="reason-card">
+              <h3>Locally Focused</h3>
+              <p>
+                Proudly serving Utah County and Salt Lake County with responsive
+                service.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-.btn-gold:hover {
-  background: var(--gold-dark);
-}
+      <section className="section projects-section" id="projects">
+        <div className="container">
+          <div className="section-heading">
+            <div className="section-tag">Recent Projects</div>
+            <h2>Real work. Real transformations. Real curb appeal.</h2>
+            <p>
+              Your photos do the selling here. This section should feel
+              image-first and trust-building.
+            </p>
+          </div>
 
-.btn-dark {
-  background: var(--navy);
-  color: var(--white);
-}
+          <div className="project-grid">
+            <img
+              src="/assets/concrete-finish-2.jpg"
+              alt="API Construction project 1"
+            />
+            <img
+              src="/assets/concrete-finish-3.jpg"
+              alt="API Construction project 2"
+            />
+            <img
+              src="/assets/concrete-curved-walkway.jpg"
+              alt="API Construction project 3"
+            />
+            <img
+              src="/assets/concrete-driveway-edge.jpg"
+              alt="API Construction project 4"
+            />
+            <img
+              src="/assets/concrete-flatwork.jpg"
+              alt="API Construction project 5"
+            />
+            <img
+              src="/assets/hardie-board-house.png"
+              alt="API Construction project 6"
+            />
+          </div>
+        </div>
+      </section>
 
-.btn-dark:hover {
-  background: var(--navy-2);
-}
+      <section className="section before-after-section">
+        <div className="container">
+          <div className="section-heading center">
+            <div className="section-tag">Transformation Spotlight</div>
+            <h2>Before and after results that drive calls.</h2>
+            <p>
+              Exterior transformations are some of the strongest proof points for
+              siding and stucco upgrades.
+            </p>
+          </div>
 
-.btn-outline-light {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.7);
-  color: var(--white);
-}
+          <div className="before-after-grid">
+            <div className="ba-card">
+              <img
+                src="/assets/provo-home-before.png"
+                alt="Before exterior project"
+              />
+              <span>Before</span>
+            </div>
+            <div className="ba-card">
+              <img
+                src="/assets/hardie-board-house.png"
+                alt="After exterior project"
+              />
+              <span>After</span>
+            </div>
+          </div>
 
-.btn-outline-light:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
+          <div className="center-cta">
+            <a href="#quote" className="btn btn-gold">
+              Get Your Free Quote
+            </a>
+          </div>
+        </div>
+      </section>
 
-.btn-full {
-  width: 100%;
-}
+      <section className="section area-section" id="areas">
+        <div className="container two-col areas-layout">
+          <div className="content-block">
+            <div className="section-tag">Service Area</div>
+            <h2>Serving homeowners and property owners across Northern Utah.</h2>
+            <p>
+              A.P.I. Construction primarily serves Utah County and Salt Lake
+              County, with a focus on responsive communication, dependable
+              project execution, and premium exterior results.
+            </p>
+            <ul className="area-list">
+              <li>Orem</li>
+              <li>Provo</li>
+              <li>Lehi</li>
+              <li>American Fork</li>
+              <li>Pleasant Grove</li>
+              <li>Springville</li>
+              <li>Salt Lake County communities</li>
+            </ul>
+          </div>
 
-.hero {
-  position: relative;
-  min-height: 760px;
-  background-image: url("/images/hero-stucco-house.jpg");
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-}
+          <div className="service-box">
+            <img
+              src="/assets/concrete-finish-2.jpg"
+              alt="A.P.I. Construction service area project"
+              className="service-box-photo"
+            />
+            <div className="service-box-body">
+              <h3>Need pricing on a project?</h3>
+              <p>
+                Reach out with photos, address, and basic scope details and we’ll
+                help you get started.
+              </p>
+              <a href="#quote" className="btn btn-gold btn-full">
+                Request Estimate
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(8, 18, 31, 0.92) 0%,
-    rgba(8, 18, 31, 0.82) 38%,
-    rgba(8, 18, 31, 0.42) 100%
+      <section className="section final-cta" id="contact">
+        <div className="container final-cta-grid">
+          <div>
+            <div className="section-tag light-tag">Let’s Talk</div>
+            <h2>Ready to upgrade your exterior?</h2>
+            <p>
+              Whether you need stucco, siding, or concrete work, A.P.I.
+              Construction is ready to talk through your project and provide a
+              free quote.
+            </p>
+          </div>
+
+          <div className="contact-card">
+            <div className="contact-item">
+              <strong>Phone</strong>
+              <a href="tel:+18014251766">(801) 425-1766</a>
+            </div>
+            <div className="contact-item">
+              <strong>Email</strong>
+              <a href="mailto:apiconstructionprovo@gmail.com">
+                apiconstructionprovo@gmail.com
+              </a>
+            </div>
+            <div className="contact-item">
+              <strong>Address</strong>
+              <span>590 W 2000 S St, Orem, UT 84058</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
-}
-
-.hero-grid {
-  position: relative;
-  z-index: 1;
-  min-height: 760px;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
-  gap: 42px;
-  padding: 72px 0;
-}
-
-.hero-copy {
-  color: var(--white);
-  max-width: 720px;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  margin-bottom: 18px;
-}
-
-.hero-copy h1 {
-  margin: 0 0 18px;
-  font-size: clamp(40px, 5vw, 72px);
-  line-height: 0.98;
-  letter-spacing: -0.03em;
-}
-
-.hero-copy p {
-  margin: 0;
-  max-width: 620px;
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  margin-top: 28px;
-  flex-wrap: wrap;
-}
-
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 30px;
-}
-
-.hero-badges span {
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  font-size: 14px;
-}
-
-.quote-card {
-  background: var(--white);
-  border-radius: 24px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.quote-card-top {
-  padding: 28px 28px 16px;
-  border-bottom: 1px solid var(--line);
-}
-
-.quote-card-top h2 {
-  margin: 0 0 8px;
-  font-size: 32px;
-  color: var(--navy);
-}
-
-.quote-card-top p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.quote-form {
-  padding: 24px 28px 28px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.field label {
-  font-size: 14px;
-  font-weight: 700;
-  color: #374151;
-}
-
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  border: 1px solid #dbe2ea;
-  border-radius: 14px;
-  background: #fff;
-  padding: 14px 15px;
-  color: var(--text);
-  outline: none;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(216, 166, 61, 0.16);
-}
-
-.intro-strip {
-  background: var(--white);
-  margin-top: -38px;
-  position: relative;
-  z-index: 3;
-}
-
-.intro-strip-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  background: var(--white);
-  border-radius: 22px;
-  box-shadow: var(--shadow);
-  padding: 26px;
-}
-
-.intro-strip-grid h3 {
-  margin: 0 0 8px;
-  color: var(--navy);
-  font-size: 22px;
-}
-
-.intro-strip-grid p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.section {
-  padding: 92px 0;
-}
-
-.section-tag {
-  color: var(--gold-dark);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 12px;
-  font-weight: 800;
-  margin-bottom: 14px;
-}
-
-.section-heading {
-  max-width: 760px;
-  margin-bottom: 38px;
-}
-
-.section-heading.center {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.section-heading.light h2,
-.section-heading.light p {
-  color: var(--white);
-}
-
-.section-heading h2,
-.content-block h2,
-.final-cta h2 {
-  margin: 0 0 16px;
-  color: var(--navy);
-  font-size: clamp(30px, 4vw, 50px);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-}
-
-.section-heading p,
-.content-block p,
-.final-cta p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 17px;
-}
-
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 0.9fr;
-  gap: 34px;
-  align-items: center;
-}
-
-.content-block p {
-  margin-bottom: 16px;
-}
-
-.feature-panel {
-  background: linear-gradient(180deg, rgba(13, 27, 42, 0.98), rgba(18, 38, 58, 0.96));
-  border-radius: 24px;
-  color: var(--white);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.feature-photo {
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.feature-panel-inner {
-  padding: 34px;
-}
-
-.feature-panel-inner h3 {
-  margin-top: 0;
-  font-size: 28px;
-}
-
-.feature-panel-inner ul {
-  margin: 18px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.feature-panel-inner li {
-  position: relative;
-  padding-left: 28px;
-  margin-bottom: 14px;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.feature-panel-inner li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--gold);
-  font-weight: 900;
-}
-
-.services-section {
-  background: var(--soft);
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.service-card {
-  background: var(--white);
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
-  border: 1px solid rgba(229, 231, 235, 0.9);
-}
-
-.service-card img {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-.service-card-body {
-  padding: 24px;
-}
-
-.service-card-body h3 {
-  margin: 0 0 12px;
-  color: var(--navy);
-  font-size: 28px;
-}
-
-.service-card-body p {
-  margin: 0 0 16px;
-  color: var(--muted);
-}
-
-.service-card-body a {
-  color: var(--gold-dark);
-  font-weight: 700;
-}
-
-.dark-band {
-  background: var(--navy);
-}
-
-.reasons-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-  margin-top: 38px;
-}
-
-.reason-card {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 20px;
-  padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.reason-card h3 {
-  margin: 0 0 10px;
-  color: var(--white);
-  font-size: 22px;
-}
-
-.reason-card p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.76);
-}
-
-.projects-section {
-  background: var(--white);
-}
-
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.project-grid img {
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 18px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-}
-
-.before-after-section {
-  background: var(--soft);
-}
-
-.before-after-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
-
-.ba-card {
-  background: var(--white);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-
-.ba-card img {
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-}
-
-.ba-card span {
-  display: block;
-  padding: 16px 20px;
-  font-weight: 800;
-  color: var(--navy);
-}
-
-.center-cta {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.area-list {
-  margin: 20px 0 0;
-  padding-left: 18px;
-  color: var(--muted);
-}
-
-.area-list li {
-  margin-bottom: 8px;
-}
-
-.service-box {
-  background: var(--navy);
-  color: var(--white);
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-
-.service-box-photo {
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.service-box-body {
-  padding: 30px;
-}
-
-.service-box h3 {
-  margin-top: 0;
-  font-size: 30px;
-}
-
-.service-box p {
-  color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 18px;
-}
-
-.final-cta {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
-}
-
-.final-cta-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 28px;
-  align-items: center;
-}
-
-.final-cta h2,
-.final-cta p {
-  color: var(--white);
-}
-
-.light-tag {
-  color: #f0c86f;
-}
-
-.contact-card {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 22px;
-  padding: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.contact-item + .contact-item {
-  margin-top: 18px;
-}
-
-.contact-item strong {
-  display: block;
-  margin-bottom: 6px;
-  color: #f4d183;
-}
-
-.contact-item a,
-.contact-item span {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-@media (max-width: 1180px) {
-  .nav-inner {
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 14px 0;
-  }
-
-  .nav-links {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .hero-grid,
-  .two-col,
-  .final-cta-grid,
-  .services-grid,
-  .reasons-grid,
-  .project-grid,
-  .before-after-grid,
-  .intro-strip-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-grid {
-    min-height: auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .topbar-inner {
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px 0;
-  }
-
-  .topbar-left {
-    justify-content: center;
-  }
-
-  .hero-grid {
-    padding: 52px 0;
-    gap: 24px;
-  }
-
-  .hero-copy h1 {
-    font-size: 42px;
-  }
-
-  .hero-copy p {
-    font-size: 16px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .hero-actions .btn,
-  .nav-cta,
-  .btn-full {
-    width: 100%;
-  }
-
-  .section {
-    padding: 72px 0;
-  }
-}
-
-@media (max-width: 560px) {
-  .container {
-    width: min(100% - 20px, var(--container));
-  }
-
-  .navbar {
-    position: static;
-  }
-
-  .nav-links {
-    gap: 14px;
-    font-size: 14px;
-  }
-
-  .brand-logo {
-    width: 68px;
-  }
-
-  .section-heading h2,
-  .content-block h2,
-  .final-cta h2 {
-    font-size: 34px;
-  }
 }

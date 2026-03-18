@@ -1,422 +1,241 @@
-"use client";
-
-import Image from "next/image";
-import { useMemo, useState } from "react";
-import { gallery, services, site } from "@/lib/site";
-
-type FormState = {
-  name: string;
-  phone: string;
-  email: string;
-  projectType: string;
-  message: string;
-};
-
-const nav = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" }
-];
-
-const initialForm: FormState = {
-  name: "",
-  phone: "",
-  email: "",
-  projectType: "Concrete",
-  message: ""
-};
-
 export default function HomePage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [form, setForm] = useState<FormState>(initialForm);
-  const [submitting, setSubmitting] = useState(false);
-  const [notice, setNotice] = useState<string>("");
-
-  const filteredGallery = useMemo(() => {
-    if (activeFilter === "All") return gallery;
-    return gallery.filter((item) => item.category === activeFilter);
-  }, [activeFilter]);
-
-  async function submitForm(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitting(true);
-    setNotice("");
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data?.error || "Unable to submit form.");
-      }
-
-      setNotice("Thanks. Your request was sent successfully.");
-      setForm(initialForm);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Something went wrong.";
-      setNotice(message);
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
   return (
     <main>
       <div className="topbar">
         <div className="container topbar-inner">
-          <div className="topbar-links">
-            <a href={site.phoneHref}>{site.phoneDisplay}</a>
-            <a href={site.emailHref}>{site.email}</a>
-          </div>
-          <div className="topbar-trust">{site.trustLine}</div>
+          <div>Licensed &amp; Insured • Free Estimates</div>
+          <div>Quality Work Done Right</div>
         </div>
       </div>
 
-      <header className="header">
-        <div className="container header-inner">
-          <a href="#home" className="brand">
-            <Image src="/assets/api-logo-new.png" alt="A.P.I. Construction logo" width={220} height={78} className="brand-logo" priority />
-            <div className="brand-copy">
-              <span>{site.shortCompany}</span>
-              <small>Concrete • Stucco • Siding</small>
+      <header className="site-header">
+        <div className="container nav">
+          <a href="#" className="brand">
+            <div className="brand-mark">API</div>
+            <div className="brand-text">
+              <strong>A.P.I. Construction</strong>
+              <span>Concrete • Stucco • Siding</span>
             </div>
           </a>
 
-          <nav className="desktop-nav">
-            {nav.map((item) => (
-              <a key={item.label} href={item.href}>
-                {item.label}
-              </a>
-            ))}
+          <nav className="nav-links">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
           </nav>
 
-          <div className="header-actions">
-            <a href="#contact" className="button button-primary">
-              Get a Free Estimate
-            </a>
-            <button className="menu-button" onClick={() => setMenuOpen((v) => !v)} aria-label="Toggle navigation">
-              {menuOpen ? "Close" : "Menu"}
-            </button>
-          </div>
+          <a href="#contact" className="btn btn-primary">
+            Get a Free Estimate
+          </a>
         </div>
-        {menuOpen && (
-          <div className="mobile-nav">
-            <div className="container mobile-nav-inner">
-              {nav.map((item) => (
-                <a key={item.label} href={item.href} onClick={() => setMenuOpen(false)}>
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </header>
 
-      <section id="home" className="hero section-dark">
-        <Image
-          src="/assets/stucco-house.jpg"
-          alt="Premium stucco home exterior by A.P.I. Construction"
-          fill
-          priority
-          className="hero-image"
-        />
-        <div className="hero-overlay" />
-        <div className="container hero-content">
-          <div className="eyebrow">Licensed & insured • Free estimates</div>
-          <h1>Premium concrete, stucco, and siding work built to last.</h1>
-          <p>
-            A.P.I. Construction delivers high-quality exterior construction with clean workmanship, honest pricing,
-            and a standard of care that treats every project like home.
-          </p>
-          <div className="hero-actions">
-            <a href="#contact" className="button button-primary">
-              Get a Free Estimate
-            </a>
-            <a href="#gallery" className="button button-secondary">
-              View Our Work
-            </a>
-          </div>
-          <div className="hero-mini">Concrete • Stucco • Siding Experts in Utah</div>
-        </div>
-      </section>
+      <section className="hero">
+        <div className="hero-bg" />
+        <div className="container hero-inner">
+          <div className="hero-copy">
+            <div className="eyebrow">Trusted concrete, stucco, and siding contractor</div>
+            <h1>Premium concrete, stucco, and siding work built to last.</h1>
+            <p>
+              A.P.I. Construction delivers high-quality exterior construction with clean
+              workmanship, honest pricing, and a standard of care that treats every project
+              like home.
+            </p>
 
-      <section className="trust-strip">
-        <div className="container trust-strip-inner">
-          <span>Licensed & Insured</span>
-          <span>Free Estimates</span>
-          <span>Quality Work Done Right</span>
+            <div className="hero-actions">
+              <a href="#contact" className="btn btn-primary">
+                Get a Free Estimate
+              </a>
+              <a href="#services" className="btn btn-secondary">
+                View Services
+              </a>
+            </div>
+
+            <div className="hero-points">
+              <span>Concrete</span>
+              <span>Stucco</span>
+              <span>Siding</span>
+              <span>Serving Utah County &amp; Salt Lake County</span>
+            </div>
+          </div>
         </div>
       </section>
 
       <section id="about" className="section">
-        <div className="container two-col about-grid">
+        <div className="container about-grid">
           <div>
-            <div className="section-tag">About A.P.I. Construction</div>
-            <h2>More than construction. It’s about home.</h2>
+            <div className="section-label">About API Construction</div>
+            <h2 className="section-title">Built on quality, honesty, and pride in the work.</h2>
+            <p className="section-text">
+              API Construction was built on the belief that every home deserves quality,
+              strength, and care.
+            </p>
+            <p className="section-text">
+              Our founder, Lata Iongi, immigrated to the United States as a teenager,
+              bringing with him the values of hard work, family, and craftsmanship. After
+              years of hands-on experience across the construction industry, Lata earned his
+              contracting license in 2003 and started his own company—naming it API, the
+              Tongan word for home.
+            </p>
+            <p className="section-text">
+              Today, A.P.I. Construction continues that mission: quality work done right,
+              honest pricing, clean job sites, and treating every customer like family.
+            </p>
           </div>
-          <div className="body-copy">
-            <p>
-              A.P.I. Construction was built on more than craftsmanship. It was built on family, integrity, and doing
-              things the right way.
-            </p>
-            <p>
-              “API” comes from the Tongan word for <strong>home</strong>, and that meaning drives every project we take
-              on. A home is more than a structure. It is where people build their lives, protect what matters, and
-              create something lasting.
-            </p>
-            <p>
-              Founded by Lata Iongi, our company is rooted in hard work, honesty, and pride in every detail. We believe
-              in showing up, doing what we say we are going to do, and delivering results that last.
-            </p>
-            <p>
-              <strong>We don’t cut corners. We don’t chase shortcuts. We do the job right the first time.</strong>
-            </p>
+
+          <div className="about-card">
+            <div className="about-logo">API</div>
+            <div className="about-card-content">
+              <h3>Why homeowners choose us</h3>
+              <ul className="check-list">
+                <li>Licensed and insured</li>
+                <li>Free estimates</li>
+                <li>Clean, professional job sites</li>
+                <li>Honest pricing and clear communication</li>
+                <li>Concrete, stucco, and siding specialists</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="services" className="section section-dark">
+      <section id="services" className="section section-alt">
         <div className="container">
-          <div className="section-tag">Services</div>
-          <h2 className="light">Concrete, stucco, and siding services with premium-level execution.</h2>
-          <p className="section-intro light-copy">
-            High-quality exterior construction for homeowners who want the project done cleanly, professionally, and
-            with lasting results.
+          <div className="section-label">Services</div>
+          <h2 className="section-title">Exterior construction services you can count on.</h2>
+          <p className="section-text section-intro">
+            We focus on the work that protects, strengthens, and upgrades the exterior of your
+            property.
           </p>
 
-          <div className="service-grid">
-            {services.map((service) => (
-              <article key={service.title} className="card service-card">
-                <div className="card-image-wrap">
-                  <Image src={service.image} alt={service.alt} width={1200} height={900} className="card-image" />
-                </div>
-                <div className="card-body">
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
-                  <ul>
-                    {service.bullets.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                  <a href="#contact" className="text-link">
-                    Request a quote →
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container highlight-grid">
-          <div>
-            <div className="section-tag">Real Projects</div>
-            <h2>From worn out to done right.</h2>
-            <p className="section-intro">
-              We don’t just install. We transform spaces with craftsmanship, attention to detail, and finishes that
-              instantly elevate curb appeal.
-            </p>
-            <div className="values-box">
-              <span>Honest, transparent pricing</span>
-              <span>Clean, professional job sites</span>
-              <span>Premium workmanship</span>
-              <span>Treating every customer like family</span>
-            </div>
-          </div>
-          <div className="before-after-grid">
-            <article className="card image-card">
-              <Image src="/assets/concrete-patio-before.jpg" alt="Before patio project photo" width={900} height={1200} className="tall-image" />
-              <div className="image-card-copy">
-                <small>Before</small>
-                <h3>Outdated surface</h3>
-              </div>
-            </article>
-            <article className="card image-card image-card-offset">
-              <Image src="/assets/concrete-curved-walkway.jpg" alt="After patio project photo" width={900} height={1200} className="tall-image" />
-              <div className="image-card-copy">
-                <small>After</small>
-                <h3>Clean, durable finish</h3>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="gallery" className="section section-muted">
-        <div className="container">
-          <div className="gallery-header">
-            <div>
-              <div className="section-tag">Our Work</div>
-              <h2>Real projects. Real results. Quality you can see.</h2>
-              <p className="section-intro">
-                Explore recent concrete, stucco, and siding work completed across Utah County and Salt Lake County.
+          <div className="services-grid">
+            <article className="service-card">
+              <h3>Concrete</h3>
+              <p>
+                Driveways, patios, walkways, flatwork, replacements, and new pours completed
+                with durability and clean finish work in mind.
               </p>
-            </div>
-            <div className="gallery-filters">
-              {["All", "Concrete", "Stucco", "Siding"].map((filter) => (
-                <button
-                  key={filter}
-                  type="button"
-                  onClick={() => setActiveFilter(filter)}
-                  className={activeFilter === filter ? "filter-active" : "filter-button"}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
+            </article>
+
+            <article className="service-card">
+              <h3>Stucco</h3>
+              <p>
+                New stucco, patch and repair work, remediation, and exterior upgrades with a
+                focus on weather protection and curb appeal.
+              </p>
+            </article>
+
+            <article className="service-card">
+              <h3>Siding</h3>
+              <p>
+                Fiber cement and exterior siding installation and replacement that improves the
+                look, performance, and longevity of your home.
+              </p>
+            </article>
           </div>
+        </div>
+      </section>
+
+      <section id="gallery" className="section">
+        <div className="container">
+          <div className="section-label">Our Work</div>
+          <h2 className="section-title">A standard of workmanship you can see.</h2>
 
           <div className="gallery-grid">
-            {filteredGallery.map((item) => (
-              <article key={`${item.title}-${item.image}`} className="card gallery-card">
-                <Image src={item.image} alt={item.alt} width={1200} height={900} className="gallery-image" />
-                <div className="gallery-copy">
-                  <span className="badge">{item.category}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.location}</p>
-                </div>
-              </article>
-            ))}
+            <div className="gallery-card">
+              <div className="gallery-placeholder">Project Photo</div>
+            </div>
+            <div className="gallery-card">
+              <div className="gallery-placeholder">Project Photo</div>
+            </div>
+            <div className="gallery-card">
+              <div className="gallery-placeholder">Project Photo</div>
+            </div>
           </div>
+
+          <p className="gallery-note">
+            Replace these placeholders with your actual project photos when you’re ready.
+          </p>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container area-box">
-          <div>
-            <div className="section-tag light-tag">Service Area</div>
-            <h2 className="light">Serving Utah with pride</h2>
-          </div>
-          <div>
-            <p className="light-copy large-copy">{site.serviceArea}</p>
-            <p className="light-copy compact-copy">
-              Looking for a concrete contractor in Orem, a stucco contractor in Utah County, or Hardie board siding
-              installation in Provo? A.P.I. Construction is built to deliver premium results with honest service.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="section">
+      <section id="contact" className="section contact-section">
         <div className="container contact-grid">
           <div>
-            <div className="section-tag">Contact Us</div>
-            <h2>Get a free estimate.</h2>
-            <p className="section-intro">Ready to start your project? Call, text, or send us a message and we’ll get back to you quickly.</p>
-            <div className="contact-cards">
-              <a href={site.phoneHref} className="contact-card">
-                <small>Call or Text</small>
-                <strong>{site.phoneDisplay}</strong>
-              </a>
-              <a href={site.emailHref} className="contact-card">
-                <small>Email</small>
-                <strong>{site.email}</strong>
-              </a>
-            </div>
-            <div className="contact-note">
-              <strong>{site.serviceArea}</strong>
-              <p>{site.trustLine}</p>
+            <div className="section-label">Contact</div>
+            <h2 className="section-title">Let’s talk about your project.</h2>
+            <p className="section-text">
+              Reach out for a free estimate. We serve homeowners and property owners across
+              Utah County and Salt Lake County.
+            </p>
+
+            <div className="contact-info">
+              <div>
+                <strong>Phone</strong>
+                <a href="tel:+18014251766">(801) 425-1766</a>
+              </div>
+              <div>
+                <strong>Email</strong>
+                <a href="mailto:apiconstructionprovo@gmail.com">
+                  apiconstructionprovo@gmail.com
+                </a>
+              </div>
+              <div>
+                <strong>Location</strong>
+                <span>590 W 2000 S St, Orem, UT 84058</span>
+              </div>
             </div>
           </div>
 
-          <form className="card form-card" onSubmit={submitForm}>
+          <form className="contact-form" action="/api/contact" method="POST">
             <div className="form-grid">
-              <label>
-                <span>Name</span>
-                <input
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="Your name"
-                  required
-                />
-              </label>
-              <label>
-                <span>Phone</span>
-                <input
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  placeholder="Your phone number"
-                  required
-                />
-              </label>
-              <label>
-                <span>Email</span>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="Your email"
-                  required
-                />
-              </label>
-              <label>
-                <span>Project Type</span>
-                <select value={form.projectType} onChange={(e) => setForm({ ...form, projectType: e.target.value })}>
-                  <option>Concrete</option>
-                  <option>Stucco</option>
-                  <option>Siding</option>
+              <div className="field">
+                <label htmlFor="name">Name</label>
+                <input id="name" name="name" type="text" required />
+              </div>
+
+              <div className="field">
+                <label htmlFor="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" required />
+              </div>
+
+              <div className="field field-full">
+                <label htmlFor="email">Email</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+
+              <div className="field field-full">
+                <label htmlFor="projectType">Project Type</label>
+                <select id="projectType" name="projectType" required defaultValue="">
+                  <option value="" disabled>
+                    Select a service
+                  </option>
+                  <option value="Concrete">Concrete</option>
+                  <option value="Stucco">Stucco</option>
+                  <option value="Siding">Siding</option>
+                  <option value="Other">Other</option>
                 </select>
-              </label>
-              <label className="full-width">
-                <span>Message</span>
+              </div>
+
+              <div className="field field-full">
+                <label htmlFor="message">Project Details</label>
                 <textarea
+                  id="message"
+                  name="message"
                   rows={6}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  placeholder="Tell us about your project"
+                  placeholder="Tell us about your project..."
                   required
                 />
-              </label>
+              </div>
             </div>
-            <div className="form-footer">
-              <div>{site.trustLine}</div>
-              <button type="submit" className="button button-dark" disabled={submitting}>
-                {submitting ? "Sending..." : "Request Free Estimate"}
-              </button>
-            </div>
-            {notice ? <p className="form-notice">{notice}</p> : null}
+
+            <button type="submit" className="btn btn-primary btn-full">
+              Submit Request
+            </button>
           </form>
         </div>
       </section>
-
-      <footer className="footer">
-        <div className="container footer-grid">
-          <div>
-            <Image src="/assets/api-logo-new.png" alt="A.P.I. Construction logo" width={220} height={78} className="brand-logo" />
-            <p>
-              Premium concrete, stucco, and siding services with honest pricing, clean job sites, and quality work done
-              right.
-            </p>
-          </div>
-          <div>
-            <h3>Navigation</h3>
-            {nav.map((item) => (
-              <a key={item.label} href={item.href}>
-                {item.label}
-              </a>
-            ))}
-          </div>
-          <div>
-            <h3>Contact</h3>
-            <a href={site.phoneHref}>{site.phoneDisplay}</a>
-            <a href={site.emailHref}>{site.email}</a>
-            <p>{site.serviceArea}</p>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <div className="container footer-bottom-inner">
-            <span>© {new Date().getFullYear()} A.P.I. Construction LLC. All rights reserved.</span>
-            <span>{site.trustLine}</span>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }
